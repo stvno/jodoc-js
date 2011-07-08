@@ -114,6 +114,7 @@ function main() {
     //var linked_h3 = jodoc.autolinkh3(files,h3stuff.h3s,options.output);
     var index = jodoc.indexer(h1stuff.h1s, options.output);
     var links = jodoc.h3index(h3stuff.h3s, options.output);
+    var main = jodoc.docker(fs.readFileSync('../docs/main.md',"utf8").toString());
     var template;
     if (options.template) {
         template = fs.readFileSync(options.template,"utf8").toString();
@@ -123,10 +124,10 @@ function main() {
             fs.mkdirSync(options.output,0777);
         }
         if (!options.noindex) {
-            linked_files.push({name:"_index.html",content:index});
+            linked_files.push({name:"_index.html",content:main});
         }
         linked_files.forEach(function(lf) {
-            var out = jodoc.html_header(lf.content,options.title,template,links);
+            var out = jodoc.html_header(lf.content,options.title,template,links,index,lf.name);
             fs.writeFile(path.join(options.output,lf.name),out,'utf8',failfast);
         });
     } else {
