@@ -114,7 +114,7 @@ function main() {
     //var linked_h3 = jodoc.autolinkh3(files,h3stuff.h3s,options.output);
     var index = jodoc.indexer(h1stuff.h1s, options.output);
     var links = jodoc.h3index(h3stuff.h3s, options.output);
-    var main = jodoc.docker(fs.readFileSync('../docs/main.md',"utf8").toString());
+    var main = markdown(fs.readFileSync('../docs/main.md',"utf8").toString());
     var template;
     if (options.template) {
         template = fs.readFileSync(options.template,"utf8").toString();
